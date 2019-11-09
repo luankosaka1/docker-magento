@@ -1,7 +1,14 @@
-# Docker para Magento
+# Docker to Magento
 
 - PHP 7.3
 - Magento 2.3.3
+
+# Pre Install
+
+mkdir data
+mkdir www
+mkdir logs/apache2
+mkdir logs/mysql
 
 # Install Magento
 composer create-project --repository=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
