@@ -21,6 +21,7 @@ services:
     build:
       context: "./bin/${DATABASE}"
     container_name: 'mysql'
+    command: ["--default-authentication-plugin=mysql_native_password"]
     restart: 'always'
     ports:
       - "${HOST_MACHINE_MYSQL_PORT}:3306"
@@ -32,3 +33,31 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  elastic:
+    # docker pull docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+    # sysctl -w vm.max_map_count=262144
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+    container_name: elasticsearch
+    environment: 
+      - discovery.type=single-node
+    volumes:
+      - ./data/elastic:/usr/share/elasticsearch/data
+    ports: 
+      - 9200:9200
+      - 9300:9300
+    links: 
+      - kibana      
+
+  kibana:
+    image: kibana:7.3.2
+    restart: always
+    environment: 
+      - "ELASTICSEARCH_HOSTS=http://magento.kibana:9200"
+      - XPACK_GRAPH_ENABLED=true
+      - XPACK_WATCHER_ENABLED=true
+      - XPACK_ML_ENABLED=true
+      - XPACK_MONITORING_ENABLED=true
+      - XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED
+    ports:
+      - 5601:5601

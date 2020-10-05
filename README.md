@@ -32,6 +32,9 @@ bin/magento setup:install \
 --use-rewrites=1 \
 --backend-frontname=admin
 
+### To version 2.4
+ocker exec -it webserver bin/magento setup:install --base-url=http://magento.curso --db-host=mysql --db-name=magento --db-user=user --db-password=pass --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com --admin-user=admin --admin-password=admin123 --search-engine=elasticsearch7 --elasticsearch-host=elastic --elasticsearch-port=9200 --backend-frontname=admin
+
 ## Disable Static Files Settings
 Stores > Configuration > Advanced > Developer > Sign Static Files (dev_static_sign) – No
 

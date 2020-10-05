@@ -50,6 +50,9 @@ RUN docker-php-ext-install bcmath
 # Install PHP zip extension
 RUN docker-php-ext-install zip
 
+# Install PHP sockets extension
+RUN docker-php-ext-install sockets
+
 # Install xdebug
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
